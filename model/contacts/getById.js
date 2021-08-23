@@ -10,7 +10,8 @@ async function getContactById(contactId) {
     );
 
     if (!requiredContact) {
-      throw new Error("There is no contact with such an ID");
+      return null;
+      // throw new Error("There is no contact with such an ID");
     }
 
     // console.log("Required contact: ", requiredContact);

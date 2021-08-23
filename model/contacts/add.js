@@ -7,27 +7,23 @@ const contactsPath = require("./contactsPath");
 
 const addContact = async (data) => {
   try {
-    // data validation
-
     const contacts = await fileReading(contactsPath);
 
-    let newContact;
-
-    contacts.find((item) => {
-      if (
+    const dataCheck = contacts.find(
+      (item) =>
         item.name === data.name ||
         item.email === data.email ||
         item.phone === data.phone
-      ) {
-        throw new Error("The contact allready in contacts list");
-      }
-      return (newContact = {
-        id: nanoid(6),
-        name: data.name,
-        email: data.email,
-        phone: data.phone,
-      });
-    });
+    );
+
+    if (dataCheck) return null;
+
+    const newContact = {
+      id: nanoid(6),
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+    };
 
     const contactsUpdate = [...contacts, newContact];
 
