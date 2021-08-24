@@ -29,11 +29,9 @@ const addContact = async (data) => {
 
     await fileWriting(contactsPath, contactsUpdate);
 
-    console.log("New Contact successfully added: ", newContact);
-
     return newContact;
   } catch (error) {
-    console.log(error.message);
+    throw error;
   }
 };
 

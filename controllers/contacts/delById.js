@@ -6,7 +6,7 @@ const delById = async (req, res, next) => {
     const removingResult = await removeContact(contactId);
 
     if (!removingResult) {
-      res.status(404).json({
+      return res.status(404).json({
         message: "There is no contact with such ID",
       });
     }

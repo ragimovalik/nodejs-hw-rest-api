@@ -18,7 +18,7 @@ async function getContactById(contactId) {
 
     return requiredContact;
   } catch (error) {
-    console.log(error.message);
+    throw error;
   }
 }
 

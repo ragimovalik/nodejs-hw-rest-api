@@ -6,21 +6,19 @@ const updateContact = async (contactId, body) => {
   try {
     const contacts = await fileReading(contactsPath);
 
-    const requiredContactIdx = contacts.findIndex(
-      (item) => item.id.toString() === contactId
-    );
+    const idx = contacts.findIndex((item) => item.id.toString() === contactId);
 
-    if (!requiredContactIdx === -1) {
+    if (idx === -1) {
       return null;
     }
 
-    contacts[requiredContactIdx] = { ...contacts[requiredContactIdx], ...body };
+    contacts[idx] = { ...contacts[idx], ...body };
 
     await fileWriting(contactsPath, contacts);
 
-    return contacts[requiredContactIdx];
+    return contacts[idx];
   } catch (error) {
-    console.log(error.message);
+    throw error;
   }
 };
 

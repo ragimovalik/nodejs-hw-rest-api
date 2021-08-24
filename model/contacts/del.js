@@ -11,7 +11,6 @@ const removeContact = async (contactId) => {
 
     if (idx === -1) {
       return null;
-      //      throw new Error("There is no contact with such ID");
     }
 
     const updatedContacts = contacts.filter(
@@ -22,7 +21,7 @@ const removeContact = async (contactId) => {
 
     return contacts[idx];
   } catch (error) {
-    console.log(error.message);
+    throw error;
   }
 };
 module.exports = removeContact;
