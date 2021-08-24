@@ -10,19 +10,17 @@ const removeContact = async (contactId) => {
     const idx = contacts.findIndex((item) => item.id.toString() === contactId);
 
     if (idx === -1) {
-      throw new Error("There is no contact with such ID");
+      return null;
+      //      throw new Error("There is no contact with such ID");
     }
 
-    const updatedContacts = contacts.filter((item) => {
-      if (item.id.toString() === contactId) {
-        console.log(`Contact with ID ${contactId} was successfully deleted`);
-      }
-      return item.id.toString() !== contactId;
-    });
+    const updatedContacts = contacts.filter(
+      (item) => item.id.toString() !== contactId
+    );
 
     await fileWriting(contactsPath, updatedContacts);
 
-    return contacts[contactId];
+    return contacts[idx];
   } catch (error) {
     console.log(error.message);
   }

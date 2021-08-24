@@ -12,7 +12,6 @@ const updateContact = async (contactId, body) => {
 
     if (!requiredContactIdx === -1) {
       return null;
-      // throw new Error("There is no contact with such an ID");
     }
 
     contacts[requiredContactIdx] = { ...contacts[requiredContactIdx], ...body };

@@ -2,6 +2,8 @@ const { addContact } = require("../../model/contacts");
 
 const addNewContact = async (req, res, next) => {
   try {
+    // TODO: validation
+
     const dataForNewContact = req.body;
 
     const newContact = await addContact(dataForNewContact);
