@@ -1,12 +1,12 @@
 const Joi = require("joi");
 
 const contactAddingSchema = Joi.object({
-  name: Joi.string().alphanum().min(2).max(15).required(),
+  name: Joi.string().min(2).max(20).required(),
   email: Joi.string()
     .email({
       minDomainSegments: 2,
       tlds: {
-        allow: ["com", "net", "org", "ua"],
+        allow: ["com", "net", "org", "ua", "us"],
       },
     })
     .required(),
