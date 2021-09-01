@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 
 app.get("/", (req, res) => {
-  res.send("<h2>Home page</h2>");
+  res.send("<h2>Welcome</h2> <p>DB test project page</p>");
 });
 
 mongoose
