@@ -1,4 +1,4 @@
-const dotenv = require("dotenv").config();
+require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
@@ -7,8 +7,6 @@ const mongoose = require("mongoose");
 const { DB_HOST } = process.env;
 
 const app = express();
-
-// console.log(process.env.DB_HOST);
 
 app.use(cors());
 
