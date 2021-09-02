@@ -2,13 +2,13 @@ const { Contact } = require("../../models/");
 
 const getAll = async (req, res, next) => {
   try {
-    const result = await Contact.find({}, "name email phone favorite");
+    const contacts = await Contact.find({}, "name email phone favorite");
 
     res.json({
       status: "succes",
       code: 200,
       data: {
-        result: result,
+        result: contacts,
       },
     });
   } catch (error) {

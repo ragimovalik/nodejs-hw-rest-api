@@ -1,21 +1,20 @@
 const { Contact } = require("../../models/");
-// const { contactUpdatingSchema } = require("../../validation");
+const updateById = require("./updateById");
 
-const updateById = async (req, res, next) => {
+const updateIsFavorite = async (req, res, next) => {
   try {
-    // const { value, error } = contactUpdatingSchema.validate(req.body);
-    // if (error) {
-    //   return res.status(400).json({
-    //     message: "Missing fields",
-    //   });
-    // }
-
     const { contactId } = req.params;
-    const dataToUpdate = req.body;
+    const { favorite } = req.body;
+
+    if (!favorite) {
+      return res.status(400).json({
+        message: "missing field favorite",
+      });
+    }
 
     const updatingResult = await Contact.findByIdAndUpdate(
       contactId,
-      dataToUpdate,
+      { favorite },
       { new: true }
     );
 
@@ -38,4 +37,4 @@ const updateById = async (req, res, next) => {
   }
 };
 
-module.exports = updateById;
+module.exports = updateIsFavorite;
