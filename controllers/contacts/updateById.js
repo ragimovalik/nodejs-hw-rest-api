@@ -1,15 +1,7 @@
 const { Contact } = require("../../models/");
-// const { contactUpdatingSchema } = require("../../validation");
 
 const updateById = async (req, res, next) => {
   try {
-    // const { value, error } = contactUpdatingSchema.validate(req.body);
-    // if (error) {
-    //   return res.status(400).json({
-    //     message: "Missing fields",
-    //   });
-    // }
-
     const { contactId } = req.params;
     const dataToUpdate = req.body;
 

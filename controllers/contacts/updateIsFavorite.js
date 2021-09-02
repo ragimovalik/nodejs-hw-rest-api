@@ -1,5 +1,4 @@
 const { Contact } = require("../../models/");
-const updateById = require("./updateById");
 
 const updateIsFavorite = async (req, res, next) => {
   try {
