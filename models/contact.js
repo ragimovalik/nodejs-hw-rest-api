@@ -35,6 +35,10 @@ const joiSchema = Joi.object({
     .try(Joi.number().min(7).max(15), Joi.string().min(7).max(15))
     .required(),
   favorite: Joi.boolean(),
+  // owner: {
+  //   type: SchemaTypes.ObjectId,
+  //   ref: "user",
+  // },
 });
 
 const Contact = model("contact", contactSchema);
