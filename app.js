@@ -6,6 +6,7 @@ require("dotenv").config();
 
 const contactsRouter = require("./routes/api/contacts");
 const authRouter = require("./routes/api/auth");
+const orderRouter = require("./example/example-private-route");
 
 const { DB_HOST, PORT = 4000 } = process.env;
 
@@ -17,14 +18,14 @@ app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/v1/auth", authRouter);
-// POST /api/v1/auth/register
-// POST /api/v1/auth/login
-// GET /api/v1/auth/logout
+// example route
+app.use("/api/v1/orders", orderRouter);
 
-// POST /api/v1/auth/signup
-// POST /api/v1/auth/signin
-// GET /api/v1/auth/signout
+// Auth router
+app.use("/api/v1/users", authRouter);
+// POST /api/v1/users/signup
+// POST /api/v1/users/login
+// GET /api/v1/users/logout
 
 app.use("/api/v1/contacts", contactsRouter);
 
