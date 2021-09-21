@@ -1,25 +1,63 @@
-const express = require('express')
-const logger = require('morgan')
-const cors = require('cors')
+const express = require("express");
+const cors = require("cors");
+const logger = require("morgan");
+const mongoose = require("mongoose");
+require("dotenv").config();
 
-const contactsRouter = require('./routes/api/contacts')
+const contactsRouter = require("./routes/api/contacts");
+const authRouter = require("./routes/api/auth");
+const orderRouter = require("./example/example-private-route");
 
-const app = express()
+const { DB_HOST, PORT = 4000 } = process.env;
 
-const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short'
+const app = express();
 
-app.use(logger(formatsLogger))
-app.use(cors())
-app.use(express.json())
+const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
-app.use('/api/contacts', contactsRouter)
+app.use(logger(formatsLogger));
+app.use(cors());
+app.use(express.json());
+
+// example route
+app.use("/api/v1/orders", orderRouter);
+
+// Auth router
+app.use("/api/v1/users", authRouter);
+// POST /api/v1/users/signup
+// POST /api/v1/users/login
+// GET /api/v1/users/logout
+
+app.use("/api/v1/contacts", contactsRouter);
 
 app.use((req, res) => {
-  res.status(404).json({ message: 'Not found' })
-})
+  res.status(404).json({
+    status: "error",
+    code: 404,
+    message: "Not found",
+  });
+});
 
-app.use((err, req, res, next) => {
-  res.status(500).json({ message: err.message })
-})
+app.use((err, _, res, __) => {
+  const { code = 500, message = "Server error" } = err;
 
-module.exports = app
+  res.status(code).json({
+    status: "fail",
+    code,
+    message,
+  });
+});
+
+mongoose
+  .connect(DB_HOST, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Database connection successful`);
+    });
+  })
+  .catch((error) => {
+    console.log(error.message);
+    process.exit(1);
+  });
