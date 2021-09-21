@@ -4,7 +4,10 @@ const getById = async (req, res, next) => {
   try {
     const { contactId } = req.params;
 
-    const requestedContact = await Contact.findById(contactId);
+    const requestedContact = await Contact.findById(contactId).populate(
+      "owner",
+      "email"
+    );
 
     if (!requestedContact) {
       res.status(404).json({

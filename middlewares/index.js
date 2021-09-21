@@ -1,5 +1,5 @@
 const validation = require("./validation");
-const controllerWrapper = require("./controllerWrapper");
+const asyncWrapper = require("./asyncWrapper");
 const isAuthenticate = require("./isAuthenticate");
 
-module.exports = { validation, controllerWrapper, isAuthenticate };
+module.exports = { validation, asyncWrapper, isAuthenticate };

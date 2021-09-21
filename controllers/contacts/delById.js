@@ -3,7 +3,10 @@ const { Contact } = require("../../models");
 const delById = async (req, res, next) => {
   try {
     const { contactId } = req.params;
-    const removingResult = await Contact.findByIdAndDelete(contactId);
+    const removingResult = await Contact.findByIdAndDelete(contactId).populate(
+      "owner",
+      "email"
+    );
 
     if (!removingResult) {
       return res.status(404).json({

@@ -4,25 +4,21 @@ const router = express.Router();
 const {
   validation,
   isAuthenticate,
-  controllerWrapper,
+  asyncWrapper,
 } = require("../../middlewares");
 const { joiSchema } = require("../../models/user");
 const ctrl = require("../../controllers/auth");
 
-router.post("/signup", validation(joiSchema), controllerWrapper(ctrl.signup));
+router.post("/signup", validation(joiSchema), asyncWrapper(ctrl.signup));
 
-router.post("/login", validation(joiSchema), controllerWrapper(ctrl.login));
+router.post("/login", validation(joiSchema), asyncWrapper(ctrl.login));
 
-router.get(
-  "/logout",
-  controllerWrapper(isAuthenticate),
-  controllerWrapper(ctrl.logout)
-);
+router.get("/logout", asyncWrapper(isAuthenticate), asyncWrapper(ctrl.logout));
 
 router.get(
   "/current",
-  controllerWrapper(isAuthenticate),
-  controllerWrapper(ctrl.current)
+  asyncWrapper(isAuthenticate),
+  asyncWrapper(ctrl.current)
 );
 
 module.exports = router;
