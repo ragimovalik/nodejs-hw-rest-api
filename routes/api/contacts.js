@@ -9,9 +9,13 @@ const {
 } = require("../../middlewares");
 const ctrl = require("../../controllers/contacts");
 
-router.get("/", asyncWrapper(isAuthenticate), ctrl.getAll);
+router.get("/", asyncWrapper(isAuthenticate), asyncWrapper(ctrl.getAll));
 
-router.get("/:contactId", asyncWrapper(isAuthenticate), ctrl.getById);
+router.get(
+  "/:contactId",
+  asyncWrapper(isAuthenticate),
+  asyncWrapper(ctrl.getById)
+);
 
 router.post(
   "/",
@@ -20,14 +24,22 @@ router.post(
   asyncWrapper(ctrl.addNewContact)
 );
 
-router.delete("/:contactId", asyncWrapper(isAuthenticate), ctrl.delById);
+router.delete(
+  "/:contactId",
+  asyncWrapper(isAuthenticate),
+  asyncWrapper(ctrl.delById)
+);
 
-router.patch("/:contactId", asyncWrapper(isAuthenticate), ctrl.updateById);
+router.patch(
+  "/:contactId",
+  asyncWrapper(isAuthenticate),
+  asyncWrapper(ctrl.updateById)
+);
 
 router.patch(
   "/:contactId/favorite",
   asyncWrapper(isAuthenticate),
-  ctrl.updateIsFavorite
+  asyncWrapper(ctrl.updateIsFavorite)
 );
 
 module.exports = router;
