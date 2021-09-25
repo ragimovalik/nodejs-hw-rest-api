@@ -1,5 +1,11 @@
 const validation = require("./validation");
-const controllerWrapper = require("./controllerWrapper");
+const asyncWrapper = require("./asyncWrapper");
 const isAuthenticate = require("./isAuthenticate");
+const upload = require("./upload");
 
-module.exports = { validation, controllerWrapper, isAuthenticate };
+module.exports = {
+  validation,
+  asyncWrapper,
+  isAuthenticate,
+  upload,
+};

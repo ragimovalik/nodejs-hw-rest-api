@@ -6,7 +6,6 @@ require("dotenv").config();
 
 const contactsRouter = require("./routes/api/contacts");
 const authRouter = require("./routes/api/auth");
-const orderRouter = require("./example/example-private-route");
 
 const { DB_HOST, PORT = 4000 } = process.env;
 
@@ -18,8 +17,7 @@ app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
 
-// example route
-app.use("/api/v1/orders", orderRouter);
+app.use(express.static("public"));
 
 // Auth router
 app.use("/api/v1/users", authRouter);
