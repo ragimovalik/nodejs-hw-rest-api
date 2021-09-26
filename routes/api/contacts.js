@@ -1,24 +1,45 @@
-const express = require('express')
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 
-router.get('/', async (req, res, next) => {
-  res.json({ message: 'template message' })
-})
+const { joiSchema } = require("../../models/contact");
+const {
+  validation,
+  asyncWrapper,
+  isAuthenticate,
+} = require("../../middlewares");
+const ctrl = require("../../controllers/contacts");
 
-router.get('/:contactId', async (req, res, next) => {
-  res.json({ message: 'template message' })
-})
+router.get("/", asyncWrapper(isAuthenticate), asyncWrapper(ctrl.getAll));
 
-router.post('/', async (req, res, next) => {
-  res.json({ message: 'template message' })
-})
+router.get(
+  "/:contactId",
+  asyncWrapper(isAuthenticate),
+  asyncWrapper(ctrl.getById)
+);
 
-router.delete('/:contactId', async (req, res, next) => {
-  res.json({ message: 'template message' })
-})
+router.post(
+  "/",
+  asyncWrapper(isAuthenticate),
+  validation(joiSchema),
+  asyncWrapper(ctrl.addNewContact)
+);
 
-router.patch('/:contactId', async (req, res, next) => {
-  res.json({ message: 'template message' })
-})
+router.delete(
+  "/:contactId",
+  asyncWrapper(isAuthenticate),
+  asyncWrapper(ctrl.delById)
+);
 
-module.exports = router
+router.patch(
+  "/:contactId",
+  asyncWrapper(isAuthenticate),
+  asyncWrapper(ctrl.updateById)
+);
+
+router.patch(
+  "/:contactId/favorite",
+  asyncWrapper(isAuthenticate),
+  asyncWrapper(ctrl.updateIsFavorite)
+);
+
+module.exports = router;
