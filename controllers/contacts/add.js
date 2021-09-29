@@ -2,8 +2,11 @@ const { Contact } = require("../../models/");
 const { Conflict } = require("http-errors");
 
 const addNewContact = async (req, res) => {
+  console.log(req.user);
+
   try {
-    const result = await Contact.create({ ...req.body, owner: req.user._id });
+    const newContact = { ...req.body, owner: req.user._id };
+    const result = await Contact.create(newContact);
 
     res.status(201).json({
       status: "success",

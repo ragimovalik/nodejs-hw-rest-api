@@ -5,6 +5,7 @@ const fs = require("fs/promises");
 const path = require("path");
 
 const { User } = require("../../models");
+const sendMail = require("../../utils");
 
 const avatarsDir = path.join(__dirname, "../../public/avatars");
 
@@ -20,7 +21,12 @@ const signup = async (req, res) => {
   const defaultAvatar = gravatar.url(email, { s: "250", protocol: "https" });
 
   // Hash a password and add (create) new user.
-  const newUser = new User({ email, avatarURL: defaultAvatar });
+  const newUser = new User({
+    email,
+    avatarURL: defaultAvatar,
+  });
+
+  newUser.createVerifyToken();
   newUser.setPassword(password);
 
   const id = String(newUser._id);
@@ -29,6 +35,16 @@ const signup = async (req, res) => {
   await fs.mkdir(userAvatarDir);
 
   await newUser.save();
+
+  const { verifyToken } = newUser;
+
+  const data = {
+    to: email,
+    subject: "Signup Confirmation",
+    html: `<a href="http://localhost:4000/api/v1/users/verify/${verifyToken}">Подтвердите регистрацию</a>`,
+  };
+
+  await sendMail(data);
 
   res.status(201).json({
     status: "success",

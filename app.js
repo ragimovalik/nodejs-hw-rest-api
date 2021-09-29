@@ -21,9 +21,6 @@ app.use(express.static("public"));
 
 // Auth router
 app.use("/api/v1/users", authRouter);
-// POST /api/v1/users/signup
-// POST /api/v1/users/login
-// GET /api/v1/users/logout
 
 app.use("/api/v1/contacts", contactsRouter);
 

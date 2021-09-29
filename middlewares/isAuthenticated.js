@@ -1,10 +1,10 @@
 const jwt = require("jsonwebtoken");
 const { Unauthorized } = require("http-errors");
-const { User } = require("../models/");
+const { User } = require("../models");
 
 const { SECRET_KEY } = process.env;
 
-const isAuthenticate = async (req, _, next) => {
+const isAuthenticated = async (req, _, next) => {
   try {
     const [bearer, token] = req.headers.authorization.split(" ");
 
@@ -28,4 +28,4 @@ const isAuthenticate = async (req, _, next) => {
   }
 };
 
-module.exports = isAuthenticate;
+module.exports = isAuthenticated;
